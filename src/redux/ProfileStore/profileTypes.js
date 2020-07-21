@@ -1,0 +1,4 @@
+export const ADD_POST = 'POST/ADD_POST'
+export const REMOVE_POST = 'POST/REMOVE_POST'
+export const FETCH_POST = 'POST/FETCH_POST'
+export const REQUEST_POST = 'POST/REQUEST_POST'

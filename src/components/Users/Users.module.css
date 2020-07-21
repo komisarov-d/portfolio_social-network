@@ -1,0 +1,11 @@
+.users {
+ display: grid;
+    grid-template-columns: 4fr 4fr 4fr;
+    margin: 10px;
+    padding: 5px;
+}
+.user {
+    border: aqua 2px solid;
+    padding: 10px;
+}
+
