@@ -30,7 +30,7 @@ const PostForm = () => {
                 onChange={formik.handleChange}
                 value={formik.values.postTitle}
             />
-            <button type="submit">Submit</button>
+            <button type="submit">Add post</button>
         </form>
     );
 }

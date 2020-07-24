@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 import {useFormik} from "formik";
 
-const ProfileInfo = () => {
-
+const ProfileStatus = () => {
     const [editMode, changeMode] = useState(false)
     const formik = useFormik({
         initialValues: {
@@ -37,7 +36,5 @@ const ProfileInfo = () => {
             </form>
         );
     }
-
 }
-export default ProfileInfo
-
+export default ProfileStatus

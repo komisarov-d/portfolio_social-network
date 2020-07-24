@@ -10,7 +10,7 @@ const Header = () => {
             <div> <img
                 className={s.logo}
                 src="https://i.ya-webdesign.com/images/w3c-svg-scalable-vector-8.png"
-                alt="logo"/>Header </div>
+                alt="logo"/> </div>
            <div className={s.login}>
                <LoginForm/>
            </div>

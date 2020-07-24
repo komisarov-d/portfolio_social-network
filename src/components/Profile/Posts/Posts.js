@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {removePost} from "../../../redux/ProfileStore/profileActions";
 
-const Posts = ({index,id, title}) => {
+const Posts = ({index, id, title}) => {
     const [likes, setLikes] = useState(0)
     const dispatch = useDispatch()
 

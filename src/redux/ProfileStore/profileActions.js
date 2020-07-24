@@ -1,4 +1,4 @@
-import {ADD_POST,  REMOVE_POST, REQUEST_POST} from "./profileTypes";
+import {ADD_POST, REMOVE_POST, REQUEST_POST, SET_USER_PROFILE} from "./profileTypes";
 
 export const createPost = post => {
     return {
@@ -18,21 +18,11 @@ export const fetchPost = () => {
     return {
         type: REQUEST_POST
     }
-    // function getUserPermissions() {
-    //     return axios.get('/user/12345/permissions');
-    // }
-    // return async dispatch => {
-    //
-    //         const response = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=6')
-    //         const json = await response.json()
-    //
-    //     setTimeout(() => {
-    //         dispatch({
-    //             type: REQUEST_POST,
-    //             payload: json
-    //         })
-    //     },500)
-    //
-    //
-    // }
+}
+export const setUserProfile = (profile) => {
+
+    return {
+        type: SET_USER_PROFILE,
+        payload: profile
+    }
 }

@@ -32,7 +32,7 @@ const dispatch = useDispatch()
                        onChange={formik.handleChange}
                        value={formik.values.password}
                        type="Password" placeholder='password'/>
-                <button type="submit">Submit</button>
+                <button type="submit">login</button>
             </form>
         )
        }
