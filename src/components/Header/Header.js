@@ -1,20 +1,29 @@
 import React from "react";
 import s from './Header.module.css'
-import LoginForm from "./Login";
+import Login from "./Login";
+import Logo from "./Logo";
+import {connect} from "react-redux";
+import {getAuthUserData} from "../../redux/AuthStore/authActions";
 
-const Header = () => {
 
+class Header extends React.Component {
+    componentDidMount() {
+      this.props.getAuthUserData()
+    }
 
-    return (
-        <header className={s.header}>
-            <div> <img
-                className={s.logo}
-                src="https://i.ya-webdesign.com/images/w3c-svg-scalable-vector-8.png"
-                alt="logo"/> </div>
-           <div className={s.login}>
-               <LoginForm/>
-           </div>
-        </header>
-    )
+    render() {
+        return (
+            <header className={s.header}>
+                <Logo/>
+                <div>
+                    <Login {...this.props}/>
+                </div>
+            </header>
+        )
+    }
 }
-export default Header
+const mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth,
+    login: state.auth.login
+})
+export default connect(mapStateToProps, {getAuthUserData})(Header)

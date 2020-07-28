@@ -1,11 +1,16 @@
-import {LOGIN, LOGOUT} from "./authTypes";
+import {LOGIN, LOGOUT, SET_USER_DATA} from "./authTypes";
 
 const initialState = {
-        auth: false
+    userId: null,
+    login: null,
+    email: null,
+    isAuth: false
 }
 export const authReducer = (state = initialState, action) => {
 
     switch (action.type) {
+        case SET_USER_DATA:
+            return {...state, ...action.data, isAuth: true}
         case LOGIN :
             return {...state, auth: true}
         case LOGOUT :

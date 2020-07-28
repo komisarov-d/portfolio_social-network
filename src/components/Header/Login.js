@@ -1,11 +1,12 @@
 import {useFormik} from "formik";
 import s from "./Header.module.css";
 import React from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {login, logout} from "../../redux/AuthStore/authActions";
+import {useDispatch} from "react-redux";
+import {authorization, logout} from "../../redux/AuthStore/authActions";
 
-const LoginForm = () => {
-const auth = useSelector(state => state.auth.auth)
+const LoginForm = (props) => {
+
+
 const dispatch = useDispatch()
 
 
@@ -15,12 +16,21 @@ const dispatch = useDispatch()
             password: '',
         },
         onSubmit: values => {
-            dispatch(login(values.email, values.password))
+            dispatch(authorization(values.email, values.password))
             formik.resetForm()
 
         },
     });
-    if (!auth) {
+
+    if (props.isAuth){
+
+        return (<div>
+
+                <button onClick={() => dispatch(logout())} >Logout</button>
+                {props.login}
+            </div>
+
+        )} else if (!props.isAuth) {
         return(
             <form onSubmit={formik.handleSubmit}>
                 <input id='email' name='email'
@@ -36,10 +46,6 @@ const dispatch = useDispatch()
             </form>
         )
        }
-if (auth){
 
-    return (
-        <button onClick={() => dispatch(logout())} >Logout</button>
-    )}
 }
 export default LoginForm

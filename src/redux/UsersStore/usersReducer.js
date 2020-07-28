@@ -1,12 +1,20 @@
-import {FOLLOW, SET_CURRENT_PAGE, SET_TOTAL_COUNT, SET_USERS, TOGGLE_IS_FETCHING, UNFOLLOW} from "./usersTypes";
+import {
+    FOLLOW,
+    FOLLOWING_IN_PROGRESS,
+    SET_CURRENT_PAGE,
+    SET_TOTAL_COUNT,
+    SET_USERS,
+    TOGGLE_IS_FETCHING,
+    UNFOLLOW
+} from "./usersTypes";
 
 const initialState = {
     users: [],
     totalUsersCount: 0,
-    pageSize: 12,
+    pageSize: 10,
     currentPage: 1,
-    isFetching: false
-
+    isFetching: false,
+    followingInProgress: []
 }
 export const usersReducer = (state = initialState, action) => {
 
@@ -38,7 +46,13 @@ export const usersReducer = (state = initialState, action) => {
         case SET_TOTAL_COUNT:
             return {...state, totalUsersCount: action.payload}
             case TOGGLE_IS_FETCHING:
-            return {...state, isFetching: action.isFetching}
+            return {...state, isFetching: action.payload}
+        case FOLLOWING_IN_PROGRESS:
+        return {...state, followingInProgress: action.isFetching ?
+                [...state.followingInProgress, action.userId]
+                :
+                state.followingInProgress.filter(id => id !== action.userId)
+        }
         default:
             return state
     }

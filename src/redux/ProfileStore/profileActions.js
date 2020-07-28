@@ -1,4 +1,5 @@
-import {ADD_POST, REMOVE_POST, REQUEST_POST, SET_USER_PROFILE} from "./profileTypes";
+import {ADD_POST, REMOVE_POST, SET_USER_PROFILE} from "./profileTypes";
+import {usersAPI} from "../../API/api";
 
 export const createPost = post => {
     return {
@@ -13,16 +14,21 @@ export const removePost = id => {
     }
 
 }
-export const fetchPost = () => {
 
-    return {
-        type: REQUEST_POST
-    }
-}
 export const setUserProfile = (profile) => {
-
-    return {
-        type: SET_USER_PROFILE,
-        payload: profile
+    return dispatch => {
+        dispatch({
+            type: SET_USER_PROFILE,
+            payload: profile
+        })
     }
 }
+export const getUserProfile = (userId) => {
+    return dispatch => {
+        usersAPI.getProfile(userId).then(response => {
+                dispatch(setUserProfile(response.data))
+            }
+        )
+    }
+}
+
