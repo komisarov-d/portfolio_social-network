@@ -1,18 +1,39 @@
 import React from "react";
 import s from './Profile.module.css'
-import PostForm from "./PostForm/PostForm";
-import PostList from "./Posts/PostList";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-const Profile = () => {
+import {Field,reduxForm} from "redux-form";
+import Posts from "./Posts";
 
-    return(
+
+const PostForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div><Field
+                component='textarea'
+                name='postTitle'/>
+            </div>
+            <div>
+                <button>Add post</button>
+            </div>
+        </form>
+    );
+}
+
+let ReduxPostForm = reduxForm({
+    form: 'ProfileAddNewPostForm'
+})(PostForm)
+
+const Profile = (props) => {
+    let onSubmit = (values) => {
+        props.createPost(values.postTitle)
+    }
+    return (
         <div className={s.content}>
-            <img className={s.bgImg} alt='bg-img' src='https://www.imgacademy.cn/themes/custom/imgacademy/images/helpbox-contact.jpg'/>
-            <ProfileInfo/>
-            <h3>My Posts</h3>
-            <PostForm/>
-            <PostList/>
+            <ProfileInfo status={props.status} updateStatus={props.updateStatus} profile={props.profile}/>
 
+            <h3>My Posts</h3>
+            <ReduxPostForm onSubmit={onSubmit}/>
+            <Posts posts={props.posts} removePost={props.removePost} likePost={props.likePost}/>
         </div>
     )
 }

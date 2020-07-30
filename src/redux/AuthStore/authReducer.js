@@ -7,14 +7,13 @@ const initialState = {
     isAuth: false
 }
 export const authReducer = (state = initialState, action) => {
-
     switch (action.type) {
         case SET_USER_DATA:
             return {...state, ...action.data, isAuth: true}
         case LOGIN :
-            return {...state, auth: true}
+            return {...state, isAuth: true}
         case LOGOUT :
-            return {...state, auth: false}
+            return {...state, isAuth: false}
 
         default:
             return state

@@ -24,16 +24,34 @@ export const usersAPI = {
         return instance.delete(`follow/${id}`).then(response => {
             return response.data
         })
-    },
-    getProfile(userId) {
-        return instance.get(`profile/${userId}`)
-
     }
+
 }
 
 
+export const profileAPI = {
+    getProfile(userId) {
+        return instance.get(`profile/${userId}`)
+
+    },
+    getStatus(userId){
+        return instance.get(`profile/status/${userId}`)
+    },
+    updateStatus(status){
+        return instance.put(`profile/status`, {status})
+    }
+
+}
 export const authAPI = {
     me() {
         return instance.get(`auth/me`)
+    },
+    login() {
+        return instance.post(`auth/login`).then(response => {
+            return response.data
+        })
+    },
+    logout() {
+        return instance.delete(`auth/login`)
     }
 }

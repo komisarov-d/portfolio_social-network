@@ -1,29 +1,49 @@
 import React from "react";
 import s from './Dialogs.module.css'
-import DialogForm from "./DialogsContent/DialogsForm";
-import {useSelector} from "react-redux";
-import DialogsList from "./DialogsContent/DialogsList";
-import DialogsMessage from "./DialogsContent/DialogsMessages";
-import {Redirect} from "react-router-dom";
-const Dialogs = () => {
+import {NavLink} from "react-router-dom";
+import {Field, reduxForm} from "redux-form";
 
-const dialogs = useSelector(state => state.dialogs.dialogs)
-    const isAuth = useSelector(state => state.auth.isAuth)
-const users = useSelector(state => state.dialogs.users)
-    if(!isAuth === false){return <Redirect to={'/login'}/>}
-        return(
-            <div className={s.dialogWrapper}>
-                <div className={s.dialogList}>
-                    {users.map(user => {return <DialogsList key={user.userId} {...user}/>})}
 
-                </div>
+const DialogForm = (props) => {
 
-                <div className={s.dialogs}>
-                    {dialogs.map(dialog => {return <DialogsMessage key={dialog.id} message={dialog.message}/>})}
-                    <DialogForm/>
-                </div>
+
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <label htmlFor="messageTitle">New message</label>
+            <Field component={'input'}
+                name="message"
+            />
+            <button>Send message</button>
+        </form>
+    );
+};
+const MessagesReduxForm = reduxForm({
+    form: 'message'
+})(DialogForm)
+
+
+const Dialogs = (props) => {
+    const onSubmit = (formData) => {
+props.sendMessage(formData)
+
+    }
+
+
+    return (
+        <div className={s.dialogWrapper}>
+            <div className={s.dialogList}>
+                {props.users.map(user => {
+                    return <div key={user.userId} className={s.dialogList}>
+                        <NavLink to={'/dialogs/' + user.userId}>{user.name}</NavLink></div>})}
             </div>
-        )
+            <div className={s.dialogs}>
+                {props.dialogs.map(dialog => {
+                    return <h3 key={dialog.id}>{dialog.message} &nbsp;</h3>
+                })}
+                <MessagesReduxForm onSubmit={onSubmit} />
+            </div>
+        </div>
+    )
 
 }
 export default Dialogs

@@ -1,40 +1,56 @@
-import React, {useState} from "react";
-import {useFormik} from "formik";
+import React from "react";
 
-const ProfileStatus = () => {
-    const [editMode, changeMode] = useState(false)
-    const formik = useFormik({
-        initialValues: {
-            status: '',
-        },
-        onSubmit: values => {
-            // values.status = status
-            changeMode(false)
 
-        },
-    });
-
-    if (!editMode) {
-        return formik.values.status.length ?
-            <div onDoubleClick={() => changeMode(true)}>{formik.values.status}</div>
-            :
-            <div onDoubleClick={() => changeMode(true)}>Status are empty</div>
+class ProfileStatus extends React.Component {
+    state = {
+        editMode: false,
+        status: this.props.status
+    }
+    editModeOn = () => {
+        this.setState({
+            editMode:true
+        })
+    }
+    editModeOff = () => {
+        this.setState({
+            editMode:false
+        })
+        this.props.updateStatus(this.state.status)
+    }
+    statusHandler = (e) => {
+        this.setState({
+            status: e.currentTarget.value
+        })
+    }
+    componentDidUpdate(prevProps, prevState, snapshot) {
+       if (prevProps.status !== this.props.status){
+           this.setState({
+               status: this.props.status
+           })
+       }
     }
 
-    if (editMode) {
-        return (
-            <form onSubmit={formik.handleSubmit}>
+    render() {
 
-                <input
-                    id="status"
-                    name="status"
-                    type="text"
-                    onChange={formik.handleChange}
-                    value={formik.values.status}
+        if (!this.state.editMode) {
+            return <div
+                onDoubleClick={ this.editModeOn}>{this.props.status ? this.props.status : 'Status are empty'}</div>
+        }
 
-                />
-            </form>
-        );
+        if (this.state.editMode) {
+            return (
+                <form >
+                    <input
+                        onBlur={ this.editModeOff}
+                        autoFocus={true}
+                        type="text"
+                        onChange={this.statusHandler}
+                        value={this.state.status}
+                    />
+                </form>
+            );
+        }
     }
 }
+
 export default ProfileStatus
