@@ -1,22 +1,31 @@
-import {SHOW_ALERT, HIDE_ALERT, HIDE_LOADER, SHOW_LOADER} from "./appTypes";
+import {getAuthUserData} from "../AuthStore/authReducer";
+
+const SET_INITIALIZED = 'APP/INITIALIZATION'
 
 const initialState = {
-    loading: false,
-    alert: null
+    initialized: false
 }
 export const appReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case SHOW_LOADER :
-            return {...state, loading: true}
-        case HIDE_LOADER :
-            return {...state, loading: false}
-        case HIDE_ALERT :
-            return {...state, alert: null}
-        case SHOW_ALERT :
-            return {...state, alert: action.payload}
+        case SET_INITIALIZED :
+            return {...state, initialized: true}
 
         default:
             return state
     }
+}
+export const initializingSuccess = () => {
+    return {
+        type: SET_INITIALIZED
+    }
+}
+export const initializeApp = () => (dispatch) => {
+   let promise = dispatch(getAuthUserData())
+
+promise.then(() => {
+    dispatch(initializingSuccess())
+})
+
+
 }

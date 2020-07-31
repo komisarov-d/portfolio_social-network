@@ -2,7 +2,7 @@ import React from "react";
 import {Loader} from "../../common/Loader/Loader";
 import userPhoto from '../../../assets/images/User_avatar.png'
 import s from '../Profile.module.css'
-import ProfileStatus from "./ProfileStatus";
+import ProfileStatus from "./ProfileStatusClass";
 const ProfileInfo = (props) => {
 
 if(!props.profile) {

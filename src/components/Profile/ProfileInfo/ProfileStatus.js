@@ -1,56 +1,36 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 
-class ProfileStatus extends React.Component {
-    state = {
-        editMode: false,
-        status: this.props.status
+const ProfileStatusHooks = (props) => {
+
+    const [editMode, toggleMode] = useState(false)
+    const [status, setStatus] = useState(props.status)
+    const onStatusChange = (e) => {
+        setStatus(e.current.value)
+        props.updateStatus(status)
     }
-    editModeOn = () => {
-        this.setState({
-            editMode:true
-        })
-    }
-    editModeOff = () => {
-        this.setState({
-            editMode:false
-        })
-        this.props.updateStatus(this.state.status)
-    }
-    statusHandler = (e) => {
-        this.setState({
-            status: e.currentTarget.value
-        })
-    }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-       if (prevProps.status !== this.props.status){
-           this.setState({
-               status: this.props.status
-           })
-       }
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status])
+
+    if (!editMode) {
+        return <div
+            onDoubleClick={toggleMode(true)}>{props.status ? props.status : 'Status are empty'}</div>
     }
 
-    render() {
-
-        if (!this.state.editMode) {
-            return <div
-                onDoubleClick={ this.editModeOn}>{this.props.status ? this.props.status : 'Status are empty'}</div>
-        }
-
-        if (this.state.editMode) {
-            return (
-                <form >
-                    <input
-                        onBlur={ this.editModeOff}
-                        autoFocus={true}
-                        type="text"
-                        onChange={this.statusHandler}
-                        value={this.state.status}
-                    />
-                </form>
-            );
-        }
+    if (editMode) {
+        return (
+            <form>
+                <input
+                    onBlur={toggleMode(false)}
+                    autoFocus={true}
+                    type="text"
+                    onChange={onStatusChange}
+                    value={status}
+                />
+            </form>
+        );
     }
 }
 
-export default ProfileStatus
+export default ProfileStatusHooks

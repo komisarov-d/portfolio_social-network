@@ -6,7 +6,7 @@ const AuthBlock = (props) => {
 
     if (props.isAuth) {
         return (<div>
-                <button onClick={() => props.logout}>Logout</button>
+                <button onClick={ props.logout}>Logout</button>
                 <div>{props.login}</div>
             </div>
         )
