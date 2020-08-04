@@ -1,4 +1,4 @@
-export const getUsers = (state) => {
+export const getUsersSelector = (state) => {
     return state.users.users
 }
 export const getPageSize = (state) => {

@@ -1,4 +1,4 @@
-import {SEND_MESSAGE} from "./dialogTypes";
+const SEND_MESSAGE = 'DIALOGS/SEND_MESSAGE'
 
 
 const initialState = {
@@ -22,5 +22,12 @@ export const dialogsReducer = (state = initialState, action) => {
             return {...state, dialogs: state.dialogs.concat(action.payload)}
         default:
             return state
+    }
+}
+
+export const sendMessage = message => {
+    return {
+        type: SEND_MESSAGE,
+        payload: message
     }
 }

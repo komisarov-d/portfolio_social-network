@@ -11,19 +11,15 @@ const instance = axios.create({
 
 export const usersAPI = {
     getUsers(currentPage = 1, pageSize = 10) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`, {}).then(response => {
+        return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(response => {
             return response.data
         })
     },
-    follow(id) {
-        return instance.post(`follow/${id}`).then(response => {
-            return response.data
-        })
+    follow(userId) {
+        return instance.post(`follow/${userId}`)
     },
-    unfollow(id) {
-        return instance.delete(`follow/${id}`).then(response => {
-            return response.data
-        })
+    unfollow(userId) {
+        return instance.delete(`follow/${userId}`)
     }
 
 }
@@ -39,6 +35,18 @@ export const profileAPI = {
     },
     updateStatus(status){
         return instance.put(`profile/status`, {status})
+    },
+    updateAvatar(profilePhoto){
+        const formData = new FormData()
+        formData.append('image', profilePhoto)
+        return instance.put(`profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    },
+    updateProfile(profile){
+        return instance.put(`profile`, profile)
     }
 
 }

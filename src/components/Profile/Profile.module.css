@@ -2,12 +2,20 @@
     grid-area: content;
     background-color: rgba(93, 120, 108, 0.66);
     justify-content: center;
-
+    padding-left: 30px;
 }
 .bgImg {
     width: 100%;
 }
 .avatar {
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 230px;
+}
+.contact {
+    padding-left: 15px;
+}
+.requestError {
+    border: red 2px solid;
+    padding: 5px;
+    color: crimson;
 }

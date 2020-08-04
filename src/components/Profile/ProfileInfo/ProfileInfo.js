@@ -1,29 +1,22 @@
 import React from "react";
 import {Loader} from "../../common/Loader/Loader";
-import userPhoto from '../../../assets/images/User_avatar.png'
-import s from '../Profile.module.css'
-import ProfileStatus from "./ProfileStatusClass";
-const ProfileInfo = (props) => {
+import ProfileStatus from "./ProfileStatus";
+import ProfileDescription from "./ProfileDescription";
+const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhoto, updateUserProfileData}) => {
 
-if(!props.profile) {
+if(!profile) {
     return <Loader/>
+}
+const onMainPhotoSelector = (e) => {
+    e.preventDefault()
+    if (e.target.files.length ){
+        savePhoto(e.target.files[0])
+    }
 }
     return(
         <div>
-
-            <div>
-                {props.profile.photos.large ?
-                    <img alt='profileAva' src={props.profile.photos.large}/>
-                    :
-                    <img className={s.avatar} src={userPhoto} alt="noAva"/>
-                }
-
-            </div>
-            <div>
-                {props.profile.fullName}
-                <div>{'profile.aboutMe'}</div>
-                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
-            </div>
+           <ProfileDescription updateUserProfileData={updateUserProfileData} isOwner={isOwner} onMainPhotoSelector={onMainPhotoSelector} profile={profile}/>
+                <ProfileStatus status={status} updateStatus={updateStatus}/>
         </div>
     )
 }
