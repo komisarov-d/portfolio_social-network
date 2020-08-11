@@ -1,13 +1,5 @@
-.dialogWrapper {
-    display: grid;
-    grid-template-columns: 2fr 10fr;
-    padding: 20px;
-}
-.dialogList {
-margin: 10px;
-
-}
-.dialogs {
-    margin: 10px;
-    padding: 10px;
+.dialogs{
+    height: auto;
+    min-height: 800px;
+    max-height: none;
 }

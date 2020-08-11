@@ -1,13 +1,9 @@
 .header {
-    grid-area: header;
-    background-color: rgba(65, 241, 167, 0.66);
-    display: grid;
-    grid-template-columns: 9fr 3fr;
+    background-color: #001529;
+    color: aliceblue;
+
 }
 
 .logo {
     width: 80px;
-}
-.form {
-    display: flex;
 }

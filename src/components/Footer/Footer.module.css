@@ -1,5 +1,7 @@
 .footer {
-    grid-area: footer;
-    background-color: rgba(65, 241, 167, 0.66);
-    height: 100px;
+
+    background-color: #001529;
+    position: marker;
+    height: 80px;
+    color: white;
 }

@@ -1,15 +1,6 @@
 .navbar {
-
-    grid-area: navbar;
-    background-color: rgba(49, 123, 142, 0.66);
-    padding: 20px;
-}
-
-.item {
-    color: white;
-    text-decoration: none;
-}
-
-.active {
-    color: gold;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 30px;
+    padding-top: 20px;
 }
