@@ -14,6 +14,7 @@ import {initializeApp} from "./redux/AppStore/appReducer";
 import {UsersPage} from "./components/Users/UsersContainer";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import {ProfileContainerFCWithRouter} from "./components/Profile/ProfileContainerFC";
 
 
 type MapPropsType = ReturnType<typeof mapStateToProps>
@@ -55,7 +56,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
 
                                 <Redirect from={'/'} to={'/profile'}/>
 
-                                <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+                                <Route path='/profile/:userId?' render={() => <ProfileContainerFCWithRouter/>}/>
 
                                  <Route path='/dialogs' render={() => <Dialogs/>}/>
 

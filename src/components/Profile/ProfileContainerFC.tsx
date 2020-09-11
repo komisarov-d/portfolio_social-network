@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import Profile from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
 import {RouteComponentProps, withRouter} from "react-router-dom";
@@ -15,7 +15,7 @@ export const ProfileContainerFC: React.FC<RouteComponentProps<PathParamsType>> =
     const authorizedUserId = useSelector(getUserIdSelector)
     const dispatch = useDispatch()
 
-    const refreshProfile = () => {
+    const refreshProfile = useCallback( () => {
         let userId: number | null = +props.match.params.userId
         if (!userId) {
             userId = authorizedUserId
@@ -29,7 +29,7 @@ export const ProfileContainerFC: React.FC<RouteComponentProps<PathParamsType>> =
             dispatch(getUserProfile(userId))
             dispatch(getStatus(userId))
         }
-    }
+    }, [authorizedUserId,dispatch])
     useEffect(() => {
         refreshProfile()
     }, [props.match.params.userId, refreshProfile, authorizedUserId])
