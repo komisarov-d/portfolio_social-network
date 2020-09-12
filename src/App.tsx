@@ -11,9 +11,8 @@ import {AppStateType, store} from "./redux/rootReducer";
 import {Row, Col} from 'antd';
 import {compose} from "redux";
 import {initializeApp} from "./redux/AppStore/appReducer";
-import {UsersPage} from "./components/Users/UsersContainer";
+import {Users} from "./components/Users/Users";
 import {Dialogs} from "./components/Dialogs/Dialogs";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import {ProfileContainerFCWithRouter} from "./components/Profile/ProfileContainerFC";
 
 
@@ -54,15 +53,17 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
                         <Switch>
                             <Suspense fallback={<div><Loader/></div>}>
 
-                                <Redirect from={'/'} to={'/profile'}/>
+                                <Route exact path={'/'} render={() => <Redirect to={'/profile'}/>}/>
 
                                 <Route path='/profile/:userId?' render={() => <ProfileContainerFCWithRouter/>}/>
 
-                                 <Route path='/dialogs' render={() => <Dialogs/>}/>
+                                <Route path='/dialogs' render={() => <Dialogs/>}/>
 
-                                <Route path='/users' render={() => <UsersPage/>}/>
+                                <Route path='/users' render={() => <Users/>}/>
 
-                                 <Route path='/login' render={() => <LoginPage/>}/>
+                                <Route path='/login' render={() => <LoginPage/>}/>
+                                <Route path='*' render={() => <div>404 Not found</div>}/>
+
 
                             </Suspense>
                         </Switch>
