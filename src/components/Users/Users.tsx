@@ -52,6 +52,7 @@ export const Users: React.FC = () => {
                 break
         }
         dispatch(requestUsers(actualPage, pageSize, actualFilter))
+        // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
@@ -62,8 +63,8 @@ export const Users: React.FC = () => {
         history.push({
             pathname: '/users',
             search: queryString.stringify(query)
-            // `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
         })
+        // eslint-disable-next-line
     }, [filter, currentPage])
 
     const onPageChanged = (pageNumber: number) => {

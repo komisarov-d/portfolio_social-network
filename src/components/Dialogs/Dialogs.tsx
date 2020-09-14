@@ -13,7 +13,7 @@ export const Dialogs: React.FC = (props) => {
     const dialogs = useSelector(getDialogsSelector)
     const messages = useSelector(getMessagesSelector)
     const dispatch = useDispatch()
-
+// todo: redirect !auth
     let dialogsElements = dialogs.map(d => <DialogsList key={d.id} id={d.id} name={d.name}/>)
     let messagesElements = messages.map(m => <Message key={m.id} message={m.message}/>)
 
