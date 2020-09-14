@@ -11,7 +11,7 @@ import {Row, Col} from 'antd';
 import {initializeApp} from "./redux/AppStore/appReducer";
 import {Users} from "./components/Users/Users";
 import {Dialogs} from "./components/Dialogs/Dialogs";
-import {ProfileContainerFCWithRouter} from "./components/Profile/ProfileContainerFC";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 import {getInitSelector} from "./redux/AppStore/appSelectors";
 
 
@@ -51,7 +51,7 @@ const AppFC: FC = () => {
 
                             <Route exact path={'/'} render={() => <Redirect to={'/profile'}/>}/>
 
-                            <Route path='/profile/:userId?' render={() => <ProfileContainerFCWithRouter/>}/>
+                            <Route path='/profile/:userId?' render={() => <ProfileContainer />}/>
 
                             <Route path='/dialogs' render={() => <Dialogs/>}/>
 
@@ -59,8 +59,9 @@ const AppFC: FC = () => {
 
                             <Route path='/login' render={() => <LoginPage/>}/>
 
+                            <Route render={() => <div>404 Not found</div>}/>
                         </Suspense>
-                        <Route path='*' render={() => <div>404 Not found</div>}/>
+
                     </Switch>
                 </Col>
             </Row>

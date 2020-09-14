@@ -32,10 +32,10 @@ export const getAuthUserData = (): ThunkType => async (dispatch) => {
 export const authorization = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkType => async (dispatch) => {
     const data = await authAPI.login(email, password, rememberMe, captcha)
     if (data.resultCode === ResultCodesEnum.Success) {
-        dispatch(getAuthUserData())
+       await dispatch(getAuthUserData())
     } else {
         if (data.resultCode === ResultCodeForCaptchaEnum.CaptchaIsRequired) {
-            dispatch(getCaptchaUrl())
+           await dispatch(getCaptchaUrl())
         }
         const message = data.messages.length > 0 ? data.messages[0] : 'Some error'
         dispatch(stopSubmit('login', {_error: message}))

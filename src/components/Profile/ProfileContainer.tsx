@@ -1,65 +1,42 @@
-import React from "react";
+import React, {useCallback, useEffect} from "react";
 import Profile from "./Profile";
-import {connect} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {useHistory, useParams} from "react-router-dom";
+import {getUserIdSelector} from "../../redux/AuthStore/authSelectors";
 import {getStatus, getUserProfile} from "../../redux/ProfileStore/profileReducer";
-import {RouteComponentProps, withRouter} from "react-router-dom";
-import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
-import {compose} from "redux";
-import {AppStateType} from "../../redux/rootReducer";
 
-type MapStatePropsType = ReturnType<typeof mapStateToProps>
 
-type MapDispatchPropsType = {
-    getUserProfile: (userId: number ) => void
-    getStatus: (userId: number | null) => void
 
-}
-type PathParamsType = {
-    userId: string
-}
-type PropsType = MapStatePropsType & MapDispatchPropsType & RouteComponentProps<PathParamsType>;
 
-class ProfileContainer extends React.Component<PropsType> {
 
-    refreshProfile() {
-        let userId: number | null = +this.props.match.params.userId
-        if (!userId) {
-            userId = this.props.authorizedUserId
-            if (!userId) {
-                this.props.history.push('/login')
+export const ProfileContainer: React.FC = () => {
+    const authorizedUserId = useSelector(getUserIdSelector)
+    const dispatch = useDispatch()
+    const history = useHistory()
+    let {userId} = useParams()
+    const refreshProfile = useCallback(() => {
+
+        let uId: number | null = userId
+        if (!uId) {
+            uId = authorizedUserId
+            if (!uId) {
+                // props.
+                history.push('/login')
             }
         }
-        if (!userId) {
+        if (!uId) {
             console.error("ID should exists in URI params or in state ('authorizedUserId')")
         } else {
-            this.props.getUserProfile(userId)
-            this.props.getStatus(userId)
+            dispatch(getUserProfile(uId))
+            dispatch(getStatus(uId))
         }
-    }
+    }, [authorizedUserId, dispatch, history,userId])
+    useEffect(() => {
+        refreshProfile()
+    }, [userId, refreshProfile, authorizedUserId])
 
-    componentDidMount() {
-        this.refreshProfile()
-    }
+    return <Profile isOwner={!userId}/>
 
-    componentDidUpdate(prevProps: PropsType, prevState: PropsType) {
-        if (this.props.match.params.userId !== prevProps.match.params.userId) {
-            this.refreshProfile()
-        }
-    }
-    componentWillUnmount(): void {}
-
-    render() {
-        return <Profile  isOwner={!this.props.match.params.userId} />
-    }
 }
+export default ProfileContainer
 
-const mapStateToProps = (state: AppStateType) => ({
-    authorizedUserId: state.auth.userId
-})
-
-export default compose<React.ComponentType>(
-    connect(mapStateToProps, {
-        getUserProfile,
-        getStatus
-    }),
-    withRouter, withAuthRedirect)(ProfileContainer)
